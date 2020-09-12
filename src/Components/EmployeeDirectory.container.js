@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTable } from 'react-table';
+import { useTable, useSortBy } from 'react-table';
 import { columns, data } from '../dataSource';
 
 function EmployeeDirectoryContainer(props) {
@@ -9,18 +9,26 @@ function EmployeeDirectoryContainer(props) {
         headerGroups,
         rows,
         prepareRow
-    } = useTable({
-        columns,
-        data
-    });
+    } = useTable(
+        {
+            columns,
+            data
+        },
+        useSortBy
+    );
 
     return (
         <table {...getTableProps()}>
             <thead>
-                {headerGroups.map(headerGroup => (
+                {headerGroups.map((headerGroup) => (
                     <tr {...headerGroup.getHeaderGroupProps()}>
-                        {headerGroup.headers.map(column => (
-                            <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                        {headerGroup.headers.map((column) => (
+                            <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                                {column.render('Header')}
+                                <span>
+                                    {column.isSorted ? (column.isSortedDesc ? " 🔽" : " 🔼") : ""}
+                                </span>
+                            </th>
                         ))}
                     </tr>
                 ))}
