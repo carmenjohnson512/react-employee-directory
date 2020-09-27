@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import EmployeeDirectoryContainer from './Components/EmployeeDirectory.container';
+import Directory from './Components/EmployeeDirectory.container'
 
 function App() {
   return (
-    <EmployeeDirectoryContainer />
+    <Directory />
   );
 }
 

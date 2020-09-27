@@ -1,52 +1,107 @@
-import React from 'react';
-import { useTable, useSortBy } from 'react-table';
-import { columns, data } from '../dataSource';
+import React, { useState } from 'react';
+import data from "../userData";
+import { Table, Button } from 'react-bootstrap';
 
-function EmployeeDirectoryContainer(props) {
-    const {
-        getTableProps, 
-        getTableBodyProps,
-        headerGroups,
-        rows,
-        prepareRow
-    } = useTable(
+
+function Directory(props) {
+    const dataColumns = [
         {
-            columns,
-            data
+            label: '',
+            field: 'picture',
+            sort: 'asc' 
         },
-        useSortBy
-    );
+        {
+            label: 'User Name',
+            field: 'username',
+            sort: 'asc' 
+        },
+        {
+            label: 'First Name',
+            field: 'first',
+            sort: 'asc' 
+        },
+        {
+            label: 'Last Name',
+            field: 'username',
+            sort: 'asc' 
+        },
+        {
+            label: 'Email',
+            field: 'email',
+            sort: 'asc' 
+        }
+    ];
+
+    const [employee, setEmployee] = useState({
+        empsArray: data,
+        columns: dataColumns,
+        filteredEmps: [],
+    })
+
+    const handleInput = (e) => {
+        e.preventDefault();
+        let newFiltered = [];
+
+        //loop 
+        // have an if in the loop says if ur name starts with v then .push into newFilted
+        employee.empsArray.map( (emp) => {
+            if(emp.name.first.substr(0, e.target.value.length).toLowerCase() === e.target.value.toLowerCase()) {
+                newFiltered.push(emp)
+            } 
+        })
+
+        console.log('This is the new filted array just the ppl we want', newFiltered)
+
+        setEmployee({...employee, filteredEmps: newFiltered})
+
+    }
+
+    let empsToDisplay = employee.empsArray
+
+    if (employee.filteredEmps.length > 0) {
+        empsToDisplay = employee.filteredEmps
+    }
 
     return (
-        <table {...getTableProps()}>
-            <thead>
-                {headerGroups.map((headerGroup) => (
-                    <tr {...headerGroup.getHeaderGroupProps()}>
-                        {headerGroup.headers.map((column) => (
-                            <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                                {column.render('Header')}
-                                <span>
-                                    {column.isSorted ? (column.isSortedDesc ? " 🔽" : " 🔼") : ""}
-                                </span>
-                            </th>
-                        ))}
-                    </tr>
-                ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-                {rows.map((row, i) => {
-                    prepareRow(row)
-                    return (
-                        <tr {...row.getRowProps()}>
-                            {row.cells.map(cell => {
-                                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                            })}
+        <div>
+            <div className="search-container">
+                <h1>Employee Directory</h1>
+                <div>
+                    <input onChange={handleInput}></input>
+                    <Button className="search-button" onClick={handleInput}>Search</Button>
+                </div>
+            </div>
+            <Table striped bordered hover variant="dark">
+                <thead>
+                    < >
+                        <tr>
+                            <th></th>
+                            <th>User Name</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
                         </tr>
-                    )
-                })}
-            </tbody>
-        </table>
+                    </>
+                </thead>
+                <tbody>
+                    {empsToDisplay.map((singleEmp) => {
+                        return (
+                            < >
+                                <tr>
+                                    <td><img src={singleEmp.picture.medium} /></td>
+                                    <td>{singleEmp.login.username}</td>
+                                    <td>{singleEmp.name.first}</td>
+                                    <td>{singleEmp.name.last}</td>
+                                    <td>{singleEmp.email}</td>
+                                </tr>
+                            </>
+                        )
+                    })
+                    }
+                </tbody>
+            </Table>
+        </div>
     );
-};
+}
 
-export default EmployeeDirectoryContainer;
+export default Directory;
