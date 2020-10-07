@@ -2,35 +2,34 @@ import React, { useState } from 'react';
 import data from "../userData";
 import { Table, Button } from 'react-bootstrap';
 
+export const dataColumns = [
+    {
+        text: '',
+        dataField: 'picture' 
+    },
+    {
+        text: 'ID',
+        dataField: 'id' 
+    },
+    {
+        text: 'User Name',
+        dataField: 'username'
+    },
+    {
+        text: 'First Name',
+        dataField: 'first'
+    },
+    {
+        text: 'Last Name',
+        dataField: 'last'
+    },
+    {
+        text: 'Email',
+        dataField: 'email'
+    }
+];
 
 function Directory(props) {
-    const dataColumns = [
-        {
-            label: '',
-            field: 'picture',
-            sort: 'asc' 
-        },
-        {
-            label: 'User Name',
-            field: 'username',
-            sort: 'asc' 
-        },
-        {
-            label: 'First Name',
-            field: 'first',
-            sort: 'asc' 
-        },
-        {
-            label: 'Last Name',
-            field: 'username',
-            sort: 'asc' 
-        },
-        {
-            label: 'Email',
-            field: 'email',
-            sort: 'asc' 
-        }
-    ];
 
     const [employee, setEmployee] = useState({
         empsArray: data,
@@ -45,7 +44,7 @@ function Directory(props) {
         //loop 
         // have an if in the loop says if ur name starts with v then .push into newFilted
         employee.empsArray.map( (emp) => {
-            if(emp.name.first.substr(0, e.target.value.length).toLowerCase() === e.target.value.toLowerCase()) {
+            if(emp.name.last.substr(0, e.target.value.length).toLowerCase() === e.target.value.toLowerCase()) {
                 newFiltered.push(emp)
             } 
         })
@@ -76,6 +75,7 @@ function Directory(props) {
                     < >
                         <tr>
                             <th></th>
+                            <th>Employee ID</th>
                             <th>User Name</th>
                             <th>First Name</th>
                             <th>Last Name</th>
@@ -89,7 +89,8 @@ function Directory(props) {
                             < >
                                 <tr>
                                     <td><img src={singleEmp.picture.medium} /></td>
-                                    <td>{singleEmp.login.username}</td>
+                                    <td>{singleEmp.id.value}</td>
+                                    <td key={singleEmp.login.username}>{singleEmp.login.username}</td>
                                     <td>{singleEmp.name.first}</td>
                                     <td>{singleEmp.name.last}</td>
                                     <td>{singleEmp.email}</td>
