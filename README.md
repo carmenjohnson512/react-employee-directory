@@ -1,4 +1,4 @@
-#Carmen Johnson | React Employee Directory App
+# Carmen Johnson | React Employee Directory App
 
 Email: carmenjohnson512@gmail.com | LinkedIn: https://www.linkedin.com/in/carmenjohnson512
 
