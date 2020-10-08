@@ -1,3 +1,5 @@
+#Carmen Johnson | React Employee Directory App
+
 Email: carmenjohnson512@gmail.com | LinkedIn: https://www.linkedin.com/in/carmenjohnson512
 
 ![#1](https://github.com/carmenjohnson512/react-employee-directory/blob/master/react_EE_directory_gif.gif?raw=true)
