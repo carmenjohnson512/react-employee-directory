@@ -24,4 +24,3 @@ npm i
 
 You can see a demo of this app [here](https://carmenjohnson512.github.io/react-employee-directory/)
 
-[React Employee Directory Link](https://carmenjohnson512.github.io/react-employee-directory/)
